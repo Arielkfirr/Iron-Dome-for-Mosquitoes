@@ -8,10 +8,11 @@ CAPTURES_DIR = Path(__file__).parent / 'data' / 'captures'
 IMAGE_EXTENSIONS = {'.jpg', '.jpeg', '.png'}
 GIT_COMMIT_MESSAGE = 'Auto-sync phone photos (last 2 minutes)'
 RECENT_SECONDS = 2 * 60  # 2 minutes
+GIT_PATH = r"C:\Program Files\Git\cmd\git.exe"
 
 def is_git_installed():
     try:
-        subprocess.run(['git', '--version'], check=True, capture_output=True)
+        subprocess.run([GIT_PATH, '--version'], check=True, capture_output=True)
         return True
     except Exception:
         return False
@@ -30,9 +31,9 @@ def git_add_commit_push(files):
     if not files:
         return False
     try:
-        subprocess.run(['git', 'add'] + [str(f) for f in files], check=True)
-        subprocess.run(['git', 'commit', '-m', GIT_COMMIT_MESSAGE], check=True)
-        subprocess.run(['git', 'push'], check=True)
+        subprocess.run([GIT_PATH, 'add'] + [str(f) for f in files], check=True)
+        subprocess.run([GIT_PATH, 'commit', '-m', GIT_COMMIT_MESSAGE], check=True)
+        subprocess.run([GIT_PATH, 'push'], check=True)
         print(f"[SYNC] Synced {len(files)} new images to git.")
         return True
     except subprocess.CalledProcessError as e:
