@@ -1,0 +1,109 @@
+# Iron Dome for Mosquitoes Configuration
+# Configuration file for the mosquito detection and prevention system
+
+# System Settings
+system:
+  name: "Iron Dome for Mosquitoes"
+  version: "1.0.0"
+  debug: true
+  log_level: "INFO"
+
+# Detection Settings
+detection:
+  model_path: "models/yolov8n.pt"
+  confidence_threshold: 0.3
+  iou_threshold: 0.5
+  classes_to_detect:
+    - "mosquito"
+    - "insect"
+    - "fly"
+  detection_interval: 1.0  # seconds
+  max_detections_per_frame: 10
+
+# Camera Settings
+camera:
+  phone_link:
+    enabled: true
+    capture_folder: "data/captures"
+    auto_save: true
+  usb_camera:
+    enabled: false
+    device_id: 0
+    resolution: [1920, 1080]
+    fps: 30
+  ip_camera:
+    enabled: false
+    url: ""
+    username: ""
+    password: ""
+
+# Prevention Settings
+prevention:
+  enabled: true
+  methods:
+    - "alert"
+    - "log"
+    - "notification"
+  alert_threshold: 3  # detections per minute
+  cooldown_period: 300  # seconds
+
+# Monitoring Settings
+monitoring:
+  enabled: true
+  log_detections: true
+  save_images: true
+  analytics_enabled: true
+  retention_days: 30
+
+# Database Settings
+database:
+  type: "sqlite"
+  path: "data/iron_dome.db"
+  backup_enabled: true
+  backup_interval: 86400  # 24 hours
+
+# Web Interface Settings
+web_interface:
+  enabled: true
+  host: "127.0.0.1"
+  port: 5000
+  debug: true
+  auto_reload: true
+
+# Notification Settings
+notifications:
+  email:
+    enabled: false
+    smtp_server: ""
+    smtp_port: 587
+    username: ""
+    password: ""
+    recipients: []
+  push:
+    enabled: false
+    api_key: ""
+  webhook:
+    enabled: false
+    url: ""
+
+# Logging Settings
+logging:
+  level: "INFO"
+  file: "logs/iron_dome.log"
+  max_size: "10MB"
+  backup_count: 5
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}"
+
+# Performance Settings
+performance:
+  max_memory_usage: "2GB"
+  cpu_limit: 80  # percentage
+  gpu_enabled: false
+  batch_size: 1
+
+# Security Settings
+security:
+  api_key_required: false
+  api_key: ""
+  rate_limit: 100  # requests per minute
+  cors_enabled: true 
