@@ -30,7 +30,7 @@ This guide will help you install and configure Iron Dome for Mosquitoes on your 
 
 ### Step 2: Clone Repository
 ```bash
-git clone https://github.com/username/Iron-Dome-for-Mosquitoes.git
+git clone https://github.com/Arielkfirr/Iron-Dome-for-Mosquitoes.git
 cd IronDomeMosquitoes
 ```
 
@@ -168,8 +168,8 @@ Your Iron Dome for Mosquitoes system is now ready to use!
 
 ### Support
 - 📖 [Documentation](README.md)
-- 🐛 [Issue Tracker](https://github.com/username/Iron-Dome-for-Mosquitoes/issues)
-- 💬 [Discussions](https://github.com/username/Iron-Dome-for-Mosquitoes/discussions)
+- 🐛 [Issue Tracker](https://github.com/Arielkfirr/Iron-Dome-for-Mosquitoes/issues)
+- 💬 [Discussions](https://github.com/Arielkfirr/Iron-Dome-for-Mosquitoes/discussions)
 
 ---
 

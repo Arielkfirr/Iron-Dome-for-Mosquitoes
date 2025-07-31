@@ -38,7 +38,7 @@ To provide a reliable, automated solution for mosquito detection and prevention,
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/username/Iron-Dome-for-Mosquitoes.git
+git clone https://github.com/Arielkfirr/Iron-Dome-for-Mosquitoes.git
 cd IronDomeMosquitoes
 ```
 
@@ -118,10 +118,9 @@ camera:
 
 ## 📚 Documentation
 
-- 📋 [Project Summary](PROJECT_SUMMARY.md) - Comprehensive project overview
-- 📊 [Current Status](CURRENT_STATUS_SUMMARY.md) - Real-time system status
 - 📱 [Phone Link Guide](PHONE_LINK_GUIDE.md) - Detailed setup instructions
-- 🚀 [Quick Start Guide](README_QUICK_START.md) - Fast setup guide
+- 📦 [Installation Guide](INSTALLATION.md) - Complete setup instructions
+- ⚙️ [Configuration](config/config.yaml) - System configuration
 
 ## 🤝 Contributing
 
@@ -151,7 +150,7 @@ This project is open source and available under the [MIT License](LICENSE).
 **🦟 Iron Dome for Mosquitoes 🛡️**  
 *Advanced AI-powered pest detection system*
 
-[![GitHub stars](https://img.shields.io/github/stars/username/Iron-Dome-for-Mosquitoes?style=social)](https://github.com/username/Iron-Dome-for-Mosquitoes)
-[![GitHub forks](https://img.shields.io/github/forks/username/Iron-Dome-for-Mosquitoes?style=social)](https://github.com/username/Iron-Dome-for-Mosquitoes)
+[![GitHub stars](https://img.shields.io/github/stars/Arielkfirr/Iron-Dome-for-Mosquitoes?style=social)](https://github.com/Arielkfirr/Iron-Dome-for-Mosquitoes)
+[![GitHub forks](https://img.shields.io/github/forks/Arielkfirr/Iron-Dome-for-Mosquitoes?style=social)](https://github.com/Arielkfirr/Iron-Dome-for-Mosquitoes)
 
 </div> 
