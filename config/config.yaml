@@ -1,120 +1,71 @@
 # Iron Dome for Mosquitoes Configuration
-# Configuration file for the mosquito detection and prevention system
-
-# System Settings
-system:
-  name: "Iron Dome for Mosquitoes"
-  version: "1.0.0"
-  debug: true
-  log_level: "INFO"
+# Advanced AI-powered pest detection system
 
 # Detection Settings
 detection:
   model_path: "models/yolov8n.pt"
   confidence_threshold: 0.3
   iou_threshold: 0.5
-  classes_to_detect:
-    - "mosquito"
-    - "insect"
-    - "fly"
-  detection_interval: 1.0  # seconds
-  max_detections_per_frame: 10
+  classes_to_detect: ["mosquito", "insect", "fly"]
+  max_detections: 10
+  detection_timeout: 30
 
 # Camera Settings
 camera:
   phone_link:
     enabled: true
     capture_folder: "data/captures"
-    auto_save: true
-  usb_camera:
-    enabled: false
-    device_id: 0
-    resolution: [1920, 1080]
-    fps: 30
-  ip_camera:
-    enabled: false
-    url: ""
-    username: ""
-    password: ""
+    auto_capture: false
+    capture_interval: 5
+  resolution:
+    width: 1920
+    height: 1080
+  quality: 85
+
+# System Settings
+system:
+  log_level: "INFO"
+  log_file: "logs/system.log"
+  max_log_size: "10 MB"
+  backup_enabled: true
+  auto_cleanup: true
+  cleanup_interval: 24  # hours
+
+# Database Settings
+database:
+  type: "sqlite"
+  path: "data/system.db"
+  auto_backup: true
+  backup_interval: 7  # days
+
+# Monitoring Settings
+monitoring:
+  enabled: true
+  metrics_interval: 60  # seconds
+  alert_threshold: 0.8
+  performance_tracking: true
 
 # Prevention Settings
 prevention:
   enabled: true
   methods:
-    - "alert"
-    - "log"
-    - "notification"
-  alert_threshold: 3  # detections per minute
-  cooldown_period: 300  # seconds
-
-# Monitoring Settings
-monitoring:
-  enabled: true
-  log_detections: true
-  save_images: true
-  analytics_enabled: true
-  retention_days: 30
-
-# Database Settings
-database:
-  type: "sqlite"
-  path: "data/iron_dome.db"
-  backup_enabled: true
-  backup_interval: 86400  # 24 hours
+    - "ultrasonic"
+    - "light_trap"
+    - "chemical_barrier"
+  auto_activation: false
 
 # Web Interface Settings
-web_interface:
+web:
   enabled: true
-  host: "127.0.0.1"
+  host: "localhost"
   port: 5000
-  debug: true
-  auto_reload: true
-
-# Notification Settings
-notifications:
-  email:
-    enabled: false
-    smtp_server: ""
-    smtp_port: 587
-    username: ""
-    password: ""
-    recipients: []
-  push:
-    enabled: false
-    api_key: ""
-  webhook:
-    enabled: false
-    url: ""
-
-# Logging Settings
-logging:
-  level: "INFO"
-  file: "logs/iron_dome.log"
-  max_size: "10MB"
-  backup_count: 5
-  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}"
+  debug: false
+  ssl_enabled: false
 
 # Performance Settings
 performance:
-  max_memory_usage: "2GB"
+  max_memory_usage: "2 GB"
   cpu_limit: 80  # percentage
-  gpu_enabled: false
-  batch_size: 1
-
-# Security Settings
-security:
-  api_key_required: false
-  api_key: ""
-  rate_limit: 100  # requests per minute
-  cors_enabled: true
-
-# Google Drive Integration Settings
-google_drive:
-  enabled: false  # Set to true to enable Google Drive integration
-  credentials_file: "credentials.json"
-  token_file: "token.json"
-  auto_upload: true
-  upload_interval: 300  # seconds (5 minutes)
-  folder_name: "IronDome Mosquitoes"
-  max_file_size: "100MB"
-  compression_enabled: true 
+  gpu_acceleration: true
+  batch_processing: true
+  cache_enabled: true 
