@@ -2,21 +2,49 @@
 
 **Iron Dome for Mosquitoes** is a production-ready, modular system for real-time mosquito detection and prevention using AI, computer vision, and IoT.
 
-## What's Included?
+## Project Journey & Key Milestones
 
-- **Phone Link Integration**: Automatic photo capture and transfer from your mobile device to the system.
-- **YOLOv8 AI Detection**: Fast, accurate detection of mosquitoes and insects in images (<3s per image).
-- **Modular Architecture**: Clean separation of components for detection, camera management, prevention, monitoring, database, and web interface.
-- **Raspberry Pi Ready**: Optimized for edge deployment and low-power devices.
-- **Comprehensive Testing**: 9/9 test phases passed, with dedicated scripts for end-to-end, photo, and integration testing.
-- **Easy Setup**: One-click setup scripts, batch files, and quick start guides.
-- **Web Dashboard (in progress)**: Real-time monitoring and analytics (Flask/FastAPI backend).
-- **Database & Analytics**: SQLite integration for detection history and analytics.
-- **Cloud Integration**: Google Drive support for backup and sharing (optional).
-- **Full Documentation**: README, quick start, roadmap, demo guides, and status summaries.
+- **Idea & Planning:**
+  - Started as a creative robotics/AI project: detect mosquitoes using computer vision and shoot them with a servo-based mechanism.
+  - Broke down the idea into: detection, spatial localization, robotic actuation, and integration.
+
+- **Hardware Selection:**
+  - Chose Raspberry Pi 5 (with camera), Arduino Uno, SG90 servos, robot arm kit, and all necessary wiring.
+  - Ordered parts efficiently (tips for splitting Amazon orders to avoid taxes).
+
+- **Dataset & Model:**
+  - Built/collected a dataset of mosquito/fly images, including backgrounds for robust detection.
+  - Used YOLOv8 (Ultralytics) for object detection, with augmentation and labeling tools (LabelImg, Roboflow).
+  - Achieved reliable detection (<3s per image) with confidence thresholding.
+
+- **Software & Integration:**
+  - Python code for real-time detection (OpenCV + YOLOv8).
+  - Arduino code for servo control (receives 'fire' command via serial).
+  - Full integration: detection triggers servo firing if confidence > 0.6.
+  - Modular architecture: detection, camera, prevention, monitoring, database, web interface.
+
+- **Testing & Iteration:**
+  - 9/9 test phases passed (unit, integration, end-to-end).
+  - Debugging and troubleshooting (Cursor IDE, PowerShell, permissions, serial issues).
+  - One-click setup scripts and quick start guides for easy onboarding.
+
+- **Learning & Achievements:**
+  - Gained hands-on experience in:
+    - Object detection and dataset creation
+    - Real-time computer vision
+    - Hardware-software integration (Python ↔ Arduino)
+    - Project management and documentation
+    - Efficient online purchasing and logistics
+  - Built a fully working prototype, ready for further expansion (web dashboard, analytics, advanced robotics).
+
+- **Practical Tips:**
+  - Use Python 3.10.x for best compatibility.
+  - Split expensive hardware orders to avoid import taxes.
+  - Start with simulation (images/videos) before full hardware integration.
+  - Use Cursor IDE for rapid development and debugging.
+  - Document every step for easy continuation and onboarding.
 
 ## Main Modules & Scripts
-
 - `src/` - Core system (main.py, detection, camera, prevention, monitoring, web, database, utils)
 - `auto_phone_link_setup.py` - One-click Phone Link setup
 - `demo_for_boss.py` - Full system demo
