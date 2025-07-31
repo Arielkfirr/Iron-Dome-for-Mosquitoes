@@ -14,6 +14,7 @@ from prevention.prevention_manager import PreventionManager
 from monitoring.monitoring_manager import MonitoringManager
 from web.web_interface import WebInterface
 from database.database_manager import DatabaseManager
+from utils.google_drive_manager import GoogleDriveManager
 
 class SystemManager:
     """Main system manager that coordinates all components"""
@@ -27,6 +28,17 @@ class SystemManager:
         
         # Initialize component managers
         self._initialize_components()
+        
+        # Initialize Google Drive manager
+        self.google_drive = None
+        if self.config.get('google_drive', {}).get('enabled', False):
+            self.google_drive = GoogleDriveManager()
+            if self.google_drive.authenticate():
+                self.google_drive.create_project_folder()
+                logger.info("Google Drive integration initialized")
+            else:
+                logger.warning("Google Drive authentication failed - integration disabled")
+                self.google_drive = None
     
     def _initialize_components(self):
         """Initialize all system components"""
@@ -144,20 +156,45 @@ class SystemManager:
         def detection_worker():
             while self.running:
                 try:
-                    # Get frames from monitoring
-                    frames = self.components['monitoring'].get_pending_frames()
+                    # Get frames from camera
+                    frames = self.components['camera'].get_frames()
                     
                     for frame in frames:
                         # Run detection
                         detections = self.components['detector'].detect(frame)
                         
                         if detections:
+                            # Create detection data
+                            detection_data = {
+                                'timestamp': time.time(),
+                                'classes': [d['class_name'] for d in detections],
+                                'confidence': max([d['confidence'] for d in detections]) if detections else 0,
+                                'detections': detections,
+                                'image_path': f"data/detections/detection_{int(time.time())}.jpg"
+                            }
+                            
                             # Process detections
-                            self.components['prevention'].process_detections(detections)
-                            self.components['monitoring'].log_detections(detections)
+                            self.components['prevention'].process_detection(detection_data)
+                            self.components['monitoring'].log_detection(detection_data)
                             
                             # Save to database
-                            self.components['database'].save_detections(detections)
+                            self.components['database'].log_detection(detection_data)
+                            
+                            # Broadcast to web interface
+                            if 'web' in self.components:
+                                self.components['web'].broadcast_detection(detection_data)
+                            
+                            # Upload to Google Drive if enabled
+                            if self.google_drive:
+                                try:
+                                    from datetime import datetime
+                                    results = self.google_drive.upload_detection_files(
+                                        "data/detections", datetime.now()
+                                    )
+                                    if results['uploaded_files'] > 0:
+                                        logger.info(f"Uploaded {results['uploaded_files']} detection files to Google Drive")
+                                except Exception as e:
+                                    logger.error(f"Google Drive upload error: {e}")
                             
                 except Exception as e:
                     logger.error(f"Detection thread error: {e}")
@@ -192,7 +229,21 @@ class SystemManager:
         """Start web interface thread"""
         def web_worker():
             try:
-                self.components['web'].run()
+                # Set system references
+                if 'web' in self.components:
+                    self.components['web'].set_system_references(
+                        self, 
+                        self.components['monitoring'], 
+                        self.components['detector']
+                    )
+                    # Start web interface
+                    self.components['web'].start()
+                    logger.info("Web interface started successfully")
+                    
+                    # Keep web interface running
+                    while self.running and self.components['web'].running:
+                        time.sleep(1)
+                        
             except Exception as e:
                 logger.error(f"Web interface error: {e}")
         
